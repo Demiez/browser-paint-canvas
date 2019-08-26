@@ -1,0 +1,14 @@
+{
+  "short_name": "Browser Paint",
+  "name": "Browser Paint created with use of canvas and react",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

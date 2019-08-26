@@ -1,0 +1,44 @@
+html {
+    font-size: 10px;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+canvas {
+    border: 2px solid #000000;
+}
+
+input, select, option {
+    font-size: 1.4rem;
+    height: 30px;
+    min-width: 90px;
+}
+
+#tool {
+    width: 102px;
+}
+
+#size {
+    height: 27px
+}
+
+#color {
+    width: 98px;
+}
+
+#container {
+    position: absolute;
+    top: 5px;
+    left: 508px;
+    height: 300px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button  {
+    font-size: 1.4rem;
+    padding: 5px;
+}
