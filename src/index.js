@@ -39,6 +39,15 @@ const tools = {
             current = new Circle(e.clientX,e.clientY, +size.value, color.value)
             inputs.push(current);
         },
+        mousemove(e) {
+            if (!current) return;
+
+            current.radius = (current.distanceTo(e.clientX, e.clientY))
+            Drawable.drawAll()
+        },
+        mouseup(e) {
+            current = null;
+        }
     },
 }
 
@@ -62,6 +71,17 @@ Drawable.drawAll = function(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     Drawable.forAll(item => item.draw())
 }
+
+// ### distance block
+const distance = (x1,y1,x2,y2) => ((x1-x2)**2 + (y1-y2)**2)**0.5;
+
+Drawable.prototype.distanceTo = function(x,y){
+    if (typeof this.x !== 'number' ||
+        typeof this.y !== 'number'){
+        return NaN
+    }
+    return distance (this.x, this.y, x,y)
+};
 
 // ### Classes
 class Circle extends Drawable {

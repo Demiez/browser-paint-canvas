@@ -6,10 +6,10 @@
 3) Created markup with use of react elements in app.js
 4) Added some styles to app.css
 5) Added graffiti and circle(only on mousedown event)
+6) Added a possibility to resize circles on canvas in runtime (with use of distance calculation between two points)
 
 
 ### planned functionality
-- resize circles on canvas in runtime (will need to check how to calculate distance between two points in canvas)
 - draw lines
 - draw rectangles
 - undo button
