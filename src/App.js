@@ -37,7 +37,7 @@ const inputs = [
 const tools = {
     name: 'tools',
     id: 'tool',
-    children: ['graffiti', 'circle', 'line', 'select'],
+    children: ['graffiti', 'circle', 'line', 'rectangle', 'select'],
 }
 
 const buttons = [

@@ -22,6 +22,7 @@ const ctx = canvas.getContext("2d");
 const color = document.getElementById('color')
 const size = document.getElementById('size')
 const tool = document.getElementById('tool')
+const undo = document.getElementById('undo')
 
 let current;
 let inputs = [];
@@ -43,6 +44,38 @@ const tools = {
             if (!current) return;
 
             current.radius = (current.distanceTo(e.clientX, e.clientY))
+            Drawable.drawAll()
+        },
+        mouseup(e) {
+            current = null;
+        }
+    },
+    line: {
+        mousedown(e) {
+            current = new Line(e.clientX,e.clientY, 0, 0, color.value, +size.value)
+        },
+        mousemove(e) {
+            if (!current) return;
+
+            current.width = e.clientX - current.x
+            current.height = e.clientY - current.y
+
+            Drawable.drawAll()
+        },
+        mouseup(e) {
+            current = null;
+        }
+    },
+    rectangle : {
+        mousedown(e) {
+            current = new Rectangle(e.clientX,e.clientY, 1, 1, color.value)
+        },
+        mousemove(e) {
+            if (!current) return;
+
+            current.width = e.clientY - current.y
+            current.height = e.clientX - current.x
+
             Drawable.drawAll()
         },
         mouseup(e) {
@@ -106,11 +139,59 @@ class Circle extends Drawable {
     }
 }
 
+class Line extends Drawable {
+    constructor(x, y, width, height, color, lineWidth) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        this.lineWidth = lineWidth;
+
+        this.draw();
+    }
+    draw(){
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x + this.width, this.y + this.height);
+        ctx.closePath();
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = this.lineWidth;
+        ctx.stroke();
+    }
+}
+
+class Rectangle extends Drawable {
+    constructor(x, y, width, height, color) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+
+        this.draw();
+    }
+    draw(){
+        ctx.beginPath();
+        ctx.fillRect(this.x, this.y, this.height, this.width );
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+}
+
 
 // new Circle(90,90,10, "red")
 
 
 // ### Event handlers
+undo.onclick = function(){
+    Drawable.instances.pop();
+    //Drawable.instances = []
+    Drawable.drawAll()
+};
 
 function superHandler(evt) {
     let t = tools[tool.value]
